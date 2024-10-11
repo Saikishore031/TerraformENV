@@ -23,11 +23,9 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
-                    dir('TERRAFORMENV') {
                         sh '''
                         terraform plan
                         '''
-                    }
                 }
             }
         }
@@ -35,11 +33,9 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 script {
-                    dir('TERRAFORMENV') {
                         sh '''
                         terraform apply -auto-approve
                         '''
-                    }
                 }
             }
         }
