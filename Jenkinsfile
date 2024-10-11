@@ -17,8 +17,7 @@ pipeline {
                                                       passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                         dir(TERRAFORM_DIR) {
                             sh '''
-                            pwd
-                            ls -ltr
+                            cd TERRAFORMENV
                             terraform init
                             '''
                         }
