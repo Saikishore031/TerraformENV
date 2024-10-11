@@ -2,16 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Terraform working directory (adjust this to match your setup)
-        TERRAFORM_DIR = 'TerraformENV'
-        // Jenkins credentials ID where AWS credentials are stored
-        AWS_CREDENTIALS_ID = 'awscred'
-        // Jenkins credentials ID where GitHub credentials (Personal Access Token or SSH key) are stored
-        GITHUB_CREDENTIALS_ID = 'envgithub'
-        // GitHub repository URL
-        GITHUB_REPO_URL = 'https://github.com/Saikishore031/TerraformENV.git'
-        // GitHub branch (optional, default to 'main')
-        GITHUB_BRANCH = 'main'
+        AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+        AWS_DEFAULT_REGION    = 'ap-south-1'
     }
 
     stages {
