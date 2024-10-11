@@ -12,7 +12,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    cd TERRAFORMENV
+                    pwd
+                    ls -ltr
                     terraform init
                     '''
                 }
