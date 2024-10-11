@@ -1,2 +1,2 @@
-ec2 = "testec2poc"
-region = "EASTUS7"
+ec2 = "testec2"
+region = "eastuspoc"
