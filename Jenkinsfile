@@ -63,15 +63,15 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            cleanWs()  // Clean up workspace after the pipeline is done
-        }
-        failure {
-            echo "Terraform deployment failed!"
-        }
-        success {
-            echo "Terraform deployment succeeded!"
-        }
-    }
+    // post {
+    //     always {
+    //         cleanWs()  // Clean up workspace after the pipeline is done
+    //     }
+    //     failure {
+    //         echo "Terraform deployment failed!"
+    //     }
+    //     success {
+    //         echo "Terraform deployment succeeded!"
+    //     }
+    // }
 }
