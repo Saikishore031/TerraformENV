@@ -11,14 +11,10 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    {
-                        dir(TERRAFORM_DIR) {
-                            sh '''
-                            cd TERRAFORMENV
-                            terraform init
-                            '''
-                        }
-                    }
+                    sh '''
+                    cd TERRAFORMENV
+                    terraform init
+                    '''
                 }
             }
         }
@@ -26,12 +22,10 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
-                     {
-                        dir(TERRAFORM_DIR) {
-                            sh '''
-                            terraform plan
-                            '''
-                        }
+                    dir('TERRAFORMENV') {
+                        sh '''
+                        terraform plan
+                        '''
                     }
                 }
             }
@@ -40,17 +34,16 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 script {
-                        dir(TERRAFORM_DIR) {
-                            sh '''
-                            terraform apply -auto-approve
-                            '''
-                        }
+                    dir('TERRAFORMENV') {
+                        sh '''
+                        terraform apply -auto-approve
+                        '''
                     }
                 }
             }
         }
     }
-}
+
     // post {
     //     always {
     //         cleanWs()  // Clean up workspace after the pipeline is done
@@ -62,4 +55,4 @@ pipeline {
     //         echo "Terraform deployment succeeded!"
     //     }
     // }
-
+}
