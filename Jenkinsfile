@@ -15,22 +15,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Terraform Code from GitHub') {
-            steps {
-                script {
-                    // Retrieve GitHub credentials from Jenkins
-                    withCredentials([string(credentialsId: GITHUB_CREDENTIALS_ID, variable: 'envgithub')]) {
-                        // Use GitHub token to clone the repository
-                        sh '''
-                        git clone https://${envgithub}@Saikishore031/TerraformENV.git
-                        cd TerraformENV
-                        git checkout ${GITHUB_BRANCH}
-                        '''
-                    }
-                }
-            }
-        }
-
         stage('Terraform Init') {
             steps {
                 script {
