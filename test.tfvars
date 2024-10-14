@@ -1,2 +1,2 @@
 ec2 = "testec2"
-region = "eastuspoc32"
+region = "eastuspoc3"
