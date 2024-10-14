@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                         sh '''
-                        terraform plan -var-file=test.tfvars
+                        terraform plan -var-file=test.tfvars -no-color
                         '''
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                         sh '''
-                        terraform apply -auto-approve -var-file=test.tfvars
+                        terraform apply -auto-approve -var-file=test.tfvars -no-color
                         '''
                 }
             }
