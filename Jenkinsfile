@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                         sh '''
-                        terraform plan
+                        terraform plan -var-file=test.tfvars
                         '''
                 }
             }
