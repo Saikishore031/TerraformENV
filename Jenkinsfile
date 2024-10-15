@@ -23,9 +23,9 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
-                        sh '''
-                        terraform plan -var-file=test.tfvars -no-color
-                        '''
+                    sh '''
+                    terraform plan -var-file=test.tfvars -no-color
+                    '''
                 }
             }
         }
@@ -33,23 +33,27 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 script {
-                        sh '''
-                        terraform apply -auto-approve -var-file=test.tfvars -no-color
-                        '''
+                    // Apply the changes and capture the public IP from the output
+                    def output = sh(script: "terraform apply -auto-approve -var-file=test.tfvars -no-color && terraform output -json", returnStdout: true).trim()
+                    
+                    // Parse the JSON output and extract the public IP
+                    def terraformOutput = readJSON text: output
+                    def publicIp = terraformOutput.instance_public_ip.value
+                    
+                    // Save the public IP as an environment variable to pass to the next pipeline
+                    env.PUBLIC_IP = publicIp
+                    echo "Public IP: ${env.PUBLIC_IP}"
                 }
             }
         }
-    }
 
-    // post {
-    //     always {
-    //         cleanWs()  // Clean up workspace after the pipeline is done
-    //     }
-    //     failure {
-    //         echo "Terraform deployment failed!"
-    //     }
-    //     success {
-    //         echo "Terraform deployment succeeded!"
-    //     }
-    // }
+        //stage('Trigger Ansible Pipeline') {
+        //    steps {
+        //        script {
+                    // Trigger the Ansible pipeline and pass the public IP
+        //            build job: 'ansible-pipeline-job', parameters: [string(name: 'PUBLIC_IP', value: "${env.PUBLIC_IP}")]
+        //        }
+        //    }
+        //}
+    }
 }
